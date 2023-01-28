@@ -1,28 +1,41 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Outline {
   public static List<String> allMatches (List<String> l1,  Predicate<String> p1) {
-    List<String> filteredList = l1
+    return l1
             .stream()
             .filter(p1)
             .collect(Collectors.toList());
-    return filteredList;
 
   }
 
   public static <E> List<E> allMatchesForAllTypes (List<E> l1, Predicate<E> p1) {
-    List<E> filteredList = l1
+    return l1
             .stream()
             .filter(p1)
             .collect(Collectors.toList());
-    return filteredList;
 
   }
 
+
+  public static List<String> transformedList (List<String> l1, Function<String,String> c1)  {
+    return l1
+            .stream()
+            .map(c1)
+            .collect(Collectors.toList());
+  }
+
+  public static <T> List<T> transformedListGeneric (List<T> l1, Function<T, T> c1)  {
+    return l1
+            .stream()
+            .map(c1)
+            .collect(Collectors.toList());
+  }
 
   public static void main(String... args) { // varargs alternative to String[]
 
@@ -72,5 +85,22 @@ public class Outline {
     System.out.println(allMatchesForAllTypes(List.of(stringArray), s -> s.length() < 5));
 
     System.out.println(allMatchesForAllTypes(List.of(intArray), s -> s < 5));
+
+    System.out.println(transformedList(List.of(stringArray), String::toUpperCase));
+
+    System.out.println(transformedList(List.of(stringArray), s -> s + "!"));
+
+    System.out.println(transformedList(List.of(stringArray), s -> s.replace("i", "eye")));
+
+    System.out.println(transformedListGeneric(List.of(stringArray), String::toUpperCase));
+
+    System.out.println(transformedListGeneric(List.of(stringArray), s -> s + "!"));
+
+    System.out.println(transformedListGeneric(List.of(stringArray), s -> s.replace("i", "eye")));
+
+    System.out.println(transformedListGeneric(List.of(intArray), s -> s * 10));
+
+    System.out.println(transformedListGeneric(List.of(intArray), s -> s * s));
+
   }
 }
