@@ -2,7 +2,7 @@ import javax.lang.model.element.Element;
 
 public class betterElement {
 
-    public static Object betterElement(Object s1, Object s2, BetterElementOfTheTwo lambda) {
+    public static <T> T betterElement(T s1, T s2, BetterElementOfTheTwo<T> lambda) {
         if (lambda.test(s1, s2)) {
             return s1;
         }
